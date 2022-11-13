@@ -1,5 +1,7 @@
 # Trabalhodeestrutura
 Estrutura de Dados em C
+Igor Cardoso Barradas – 202203469029
+João Victor de Souza Lopes - 202203938924
 
 Estrutura de Dados
 Trabalho 02
