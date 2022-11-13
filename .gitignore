@@ -1,52 +1,109 @@
-# Prerequisites
-*.d
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
 
-# Object files
-*.lp destiny
-*.ko
-*.obj
-*.elf
+int *pRaiz;
 
-# Linker output
-*.ilk
-*.map
-*.exp
+typedef struct o{
+	
+	int valor;
+	struct o *direita, *esquerda;
+	
+}NoArv;
 
-# Precompiled Headers
-*.gch
-*.pch
+struct No
+{
+    int numero;
+    struct No *esquerda;
+    struct No *direita;
+};
+typedef struct No No;
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+NoArv* inserirversao1(NoArv *raiz, int num){
+	if(raiz == NULL){
+		NoArv *aux = malloc(sizeof(NoArv));
+		aux->valor = num;
+		aux->esquerda = NULL;
+		aux->direita = NULL;
+		return aux;
+		
+	}else{
+		if(num < raiz->valor){
+			raiz->esquerda = inserirversao1(raiz->esquerda, num);
+		}else{
+			raiz->direita = inserirversao1(raiz->direita, num);
+			return raiz;
+		}
+	}
+	
+}
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+void criar(No **pRaiz){
+    *pRaiz = NULL;
+}
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+void imprversao1(NoArv *raiz){
+	if(raiz){
+		printf("%d\t", raiz->valor);
+		imprversao1(raiz->esquerda);
+		imprversao1(raiz->direita);
+	}
+	
+}
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
+void imprversao2(NoArv *raiz){
+	if(raiz){
+		imprversao1(raiz->esquerda);
+		printf("%d\t", raiz->valor);
+		imprversao1(raiz->direita);
+	}
+	
+}
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+void imprversao3(NoArv *raiz){
+	if(raiz){
+		imprversao1(raiz->esquerda);
+		imprversao1(raiz->direita);
+		printf("%d\t", raiz->valor);
+	}
+	
+}
+
+int alt(NoArv *raiz){
+	if(raiz == NULL){
+		
+		
+		return 0;
+	}else{
+		int esq = alt(raiz->esquerda);
+		int dir = alt(raiz->direita);
+		if(esq > dir){
+			return esq + 1;
+		}else{
+			return dir + 1;
+		}
+	}
+	
+}
+
+No *MaiorDireita(No **no){
+    if((*no)->direita != NULL)
+    {
+       return MaiorDireita(&(*no)->direita);
+    }
+    else
+    {
+       No *aux = *no;
+       
+       if((*no)->esquerda != NULL)
+        {
+          *no = (*no)->esquerda;
+        }
+        else
+        {
+            *no = NULL;
+            return aux;
+        }
+    }
+        
+}
