@@ -1,0 +1,232 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+
+int *pRaiz;
+
+typedef struct o{
+	
+	int valor;
+	struct o *direita, *esquerda;
+	
+}NoArv;
+
+struct No
+{
+    int numero;
+    struct No *esquerda;
+    struct No *direita;
+};
+typedef struct No No;
+
+NoArv* inserirversao1(NoArv *raiz, int num){
+	if(raiz == NULL){
+		NoArv *aux = malloc(sizeof(NoArv));
+		aux->valor = num;
+		aux->esquerda = NULL;
+		aux->direita = NULL;
+		return aux;
+		
+	}else{
+		if(num < raiz->valor){
+			raiz->esquerda = inserirversao1(raiz->esquerda, num);
+		}else{
+			raiz->direita = inserirversao1(raiz->direita, num);
+			return raiz;
+		}
+	}
+	
+}
+
+void criar(No **pRaiz){
+    *pRaiz = NULL;
+}
+
+void imprversao1(NoArv *raiz){
+	if(raiz){
+		printf("%d\t", raiz->valor);
+		imprversao1(raiz->esquerda);
+		imprversao1(raiz->direita);
+	}
+	
+}
+
+void imprversao2(NoArv *raiz){
+	if(raiz){
+		imprversao1(raiz->esquerda);
+		printf("%d\t", raiz->valor);
+		imprversao1(raiz->direita);
+	}
+	
+}
+
+void imprversao3(NoArv *raiz){
+	if(raiz){
+		imprversao1(raiz->esquerda);
+		imprversao1(raiz->direita);
+		printf("%d\t", raiz->valor);
+	}
+	
+}
+
+int alt(NoArv *raiz){
+	if(raiz == NULL){
+		
+		
+		return 0;
+	}else{
+		int esq = alt(raiz->esquerda);
+		int dir = alt(raiz->direita);
+		if(esq > dir){
+			return esq + 1;
+		}else{
+			return dir + 1;
+		}
+	}
+	
+}
+
+No *MaiorDireita(No **no){
+    if((*no)->direita != NULL)
+    {
+       return MaiorDireita(&(*no)->direita);
+    }
+    else
+    {
+       No *aux = *no;
+       
+       if((*no)->esquerda != NULL)
+        {
+          *no = (*no)->esquerda;
+        }
+        else
+        {
+            *no = NULL;
+            return aux;
+        }
+    }
+        
+}
+
+No *MenorEsquerda(No **no)
+{
+    if((*no)->esquerda != NULL)
+    {
+       return MenorEsquerda(&(*no)->esquerda);
+    }
+    else
+    {
+        No *aux = *no; 
+        if((*no)->direita != NULL) 
+        {
+          *no = (*no)->direita;
+        }
+        else
+        {
+          *no = NULL;
+        }
+        return aux;
+    }
+}
+
+void remo(No **pRaiz, int numero){
+    if(*pRaiz == NULL){   
+       printf("Numero nao existe na arvore!");
+       getch();
+       return;
+    }
+    if(numero < (*pRaiz)->numero)
+       remo(&(*pRaiz)->esquerda, numero);
+    else 
+       if(numero > (*pRaiz)->numero)
+          remo(&(*pRaiz)->direita, numero);
+       else{    
+          No *pAux = *pRaiz;     
+          if (((*pRaiz)->esquerda == NULL) && ((*pRaiz)->direita == NULL)){         
+                free(pAux);
+                (*pRaiz) = NULL; 
+               }
+          else{    
+             if ((*pRaiz)->esquerda == NULL){
+                (*pRaiz) = (*pRaiz)->direita;
+                pAux->direita = NULL;
+                free(pAux); pAux = NULL;
+                }
+             else{            
+                if ((*pRaiz)->direita == NULL){
+                    (*pRaiz) = (*pRaiz)->esquerda;
+                    pAux->esquerda = NULL;
+                    free(pAux); pAux = NULL;
+                    }
+                else{       
+                   pAux = MaiorDireita(&(*pRaiz)->esquerda); 
+                   pAux->esquerda = (*pRaiz)->esquerda;          
+                   pAux->direita = (*pRaiz)->direita;
+                   (*pRaiz)->esquerda = (*pRaiz)->direita = NULL;
+                   free((*pRaiz));  *pRaiz = pAux;  pAux = NULL;   
+                   }
+                }
+             }
+          }
+}
+
+
+
+int main(){
+	
+	NoArv *raiz = NULL;
+	
+	int op, valor;
+	
+	do{
+		printf("\n\t0 - Exit\n\t1 - Inserir\n\t2 - Criar\n\t3 - Imprimir\n\t4 - Altura\n\t5 - Remover\n");
+		scanf("%d", &op);
+		
+		switch(op)
+		{
+		case 1:
+			printf("\n\tDigite um numero:");
+			scanf("%d", &valor);
+			raiz  = inserirversao1(raiz, valor);
+			break;
+		case 2:
+			printf("\n\tDigite um numero:");
+			scanf("%d", &valor);
+			void criar(pRaiz ,valor);
+			
+			break;
+		case 3:
+			printf("\n\tVizualizacao-1\n");
+            imprversao1(raiz);
+			printf("\n");
+			printf("\n\tVizualizacao-2\n");
+			imprversao3(raiz);
+			printf("\n");
+			printf("\n\tVizualizacao-3\n");
+			imprversao3(raiz);
+			printf("\n");
+			break;
+		case 4:
+			printf("\n\tAltura da arvore: %d\n\n", alt(raiz));
+			break;
+		case 5:
+			printf("\n\tDigite um numero:");
+			scanf("%d", &valor);
+			void remo();
+		    
+			break;
+		
+		default:
+			if(op != 0){
+				printf("Invalidado....\n");
+			}
+			break;
+		}
+		
+	}while(op != 0);
+	
+	
+	
+	
+	return 0;
+}
