@@ -1,3 +1,4 @@
+//A estrutura esta compilando tranquilo no Compilador FalconC++
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
