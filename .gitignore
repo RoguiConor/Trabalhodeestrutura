@@ -10,7 +10,7 @@ typedef struct o{
 	struct o *direita, *esquerda;
 	
 }NoArv;
-//estou aqui professor sou o João Victor
+//estou aqui professor
 struct No
 {
     int numero;
@@ -172,61 +172,3 @@ void remo(No **pRaiz, int numero){
 
 
 
-int main(){
-	
-	NoArv *raiz = NULL;
-	
-	int op, valor;
-	
-	do{
-		printf("\n\t0 - Exit\n\t1 - Inserir\n\t2 - Criar\n\t3 - Imprimir\n\t4 - Altura\n\t5 - Remover\n");
-		scanf("%d", &op);
-		
-		switch(op)
-		{
-		case 1:
-			printf("\n\tDigite um numero:");
-			scanf("%d", &valor);
-			raiz  = inserirversao1(raiz, valor);
-			break;
-		case 2:
-			printf("\n\tDigite um numero:");
-			scanf("%d", &valor);
-			void criar(pRaiz ,valor);
-			
-			break;
-		case 3:
-			printf("\n\tVizualizacao-1\n");
-            imprversao1(raiz);
-			printf("\n");
-			printf("\n\tVizualizacao-2\n");
-			imprversao3(raiz);
-			printf("\n");
-			printf("\n\tVizualizacao-3\n");
-			imprversao3(raiz);
-			printf("\n");
-			break;
-		case 4:
-			printf("\n\tAltura da arvore: %d\n\n", alt(raiz));
-			break;
-		case 5:
-			printf("\n\tDigite um numero:");
-			scanf("%d", &valor);
-			void remo();
-		    
-			break;
-		
-		default:
-			if(op != 0){
-				printf("Invalidado....\n");
-			}
-			break;
-		}
-		
-	}while(op != 0);
-	
-	
-	
-	
-	return 0;
-}
