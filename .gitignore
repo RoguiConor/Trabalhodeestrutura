@@ -10,7 +10,7 @@ typedef struct o{
 	struct o *direita, *esquerda;
 	
 }NoArv;
-
+//estou aqui professor sou o João Victor
 struct No
 {
     int numero;
