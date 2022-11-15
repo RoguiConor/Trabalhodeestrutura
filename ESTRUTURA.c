@@ -11,7 +11,7 @@ typedef struct o{
 	struct o *direita, *esquerda;
 	
 }NoArv;
-
+//Estamos aqui viu
 struct No
 {
     int numero;
@@ -229,4 +229,3 @@ int main(){
 	
 	return 0;
 }
-
